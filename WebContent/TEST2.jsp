@@ -3,19 +3,15 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <jsp:useBean id="t2" class="pack.TEST2"></jsp:useBean>
-    <jsp:setProperty property="buser" name="t2"/>
+
+    <jsp:setProperty property="buser" name="gs"/>
     <jsp:useBean id="gs" class="pack.TEST2GS"></jsp:useBean>
     
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
-s.getDan()
-</script>
 </head>
 <body>
 <h2>** 사원자료(beans 사용) **</h2>

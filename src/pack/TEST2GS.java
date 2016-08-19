@@ -13,6 +13,15 @@ public class TEST2GS {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+	private String buser;
+	
+	public String getBuser() {
+		return buser;
+	}
+
+	public void setBuser(String buser) {
+		this.buser = buser;
+	}
 	
 	public TEST2GS() {
 		try {
@@ -26,12 +35,12 @@ public class TEST2GS {
 	
 	public ArrayList<TEST2> getData(){
 		ArrayList<TEST2> list = new ArrayList<>();
-		TEST2 t2 = new TEST2();
+		
 		try {
 			String sql = "select sawon_no,sawon_name,sawon_jik,sawon_gen,(select avg(sawon_pay) from sawon) from sawon inner join buser on buser_num=buser_no where buser_name=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, t2.getBuser());
-			//System.out.println(t2.getBuser());
+			pstmt.setString(1, buser);
+			//System.out.println(buser);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				TEST2 dto = new TEST2();

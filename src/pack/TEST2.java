@@ -1,17 +1,11 @@
 package pack;
 
 public class TEST2 {
-	private String buser;
+	
 	private String code,sang,su,dan;
 	private int avg;
 	
-	public String getBuser() {
-		return buser;
-	}
-
-	public void setBuser(String buser) {
-		this.buser = buser;
-	}
+	
 
 	public String getCode() {
 		return code;
