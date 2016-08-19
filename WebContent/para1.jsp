@@ -21,7 +21,7 @@ out.println(my.getMessage());
 %>
 <br>
 <!--세터,게터메소드를 만들때 구칙을 지켜야 자동화가능 property와 클래스의 맴버필드를같게 -->
-<jsp:setProperty property="message" name="my"/><!--value="ddd" 값을줄수도잇다  -->
+<jsp:setProperty property="message" name="my"/><!--value="ddd" 값을줄수도잇다,알아서 싱글톤타입으로준다  -->
 <jsp:getProperty property="message" name="my"/>
 </body>
 </html>
