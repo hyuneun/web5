@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#btnIns").click(function(){
+		//alert("asd");
+		if($("#name").val() === ""){
+			alert("뭐함")
+			return;
+		}
+		if($("#sub").val() === ""){
+			alert("뭐함")
+			return;
+		}
+
+		if($("#cont").val() === ""){
+			alert("뭐함")
+			return;
+		}
+		
+		$("#frm").submit();
+	})
+	
+	$("#btnList").bind("click",listFunc);
+	
+});
+
+function listFunc(){
+	location.href = "TEST4.jsp";
+}
+
+</script>
+</head>
+<body>
+<h1>상품추가</h1>
+<form action="TEST4_ins.jsp" method="post" id="frm">
+작성자 : <input type="text" name="name" id="sang"><br>
+제목 : <input type="text" name="subject" id="su"><br>
+내용 : <input type="text" name="content" id="dan"><br>
+<input type="button" value="자료추가" id="btnIns">
+<input type="reset" value="취소">
+<input type="button" value="목록보기" id="btnList">
+
+</form>
+</body>
+</html>
