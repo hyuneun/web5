@@ -1,6 +1,7 @@
 package pack;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -30,10 +31,11 @@ public class ConnbinPooling {
 	
 	public ConnbinPooling() {
 		try {
-			//기존방법 - Class.forName("com.mysql.jdbc.Driver");
+			//기존방법 - 
+			Class.forName("com.mysql.jdbc.Driver");
 			//커넥션 객체를 풀링기법으로 만들어줌
-			Context context = new InitialContext();
-			ds = (DataSource)context.lookup("java:comp/env/jdbc_maria");
+			//Context context = new InitialContext();
+			//ds = (DataSource)context.lookup("java:comp/env/jdbc_maria");
 			
 		} catch (Exception e) {
 			System.out.println("실패");
@@ -45,7 +47,8 @@ public class ConnbinPooling {
 		ArrayList<SangpumDTO> list = new ArrayList<>();
 		try {
 			String sql = "select * from sangdata";
-			conn = ds.getConnection();//풀링
+			//conn = ds.getConnection();//풀링
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "1234");
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {

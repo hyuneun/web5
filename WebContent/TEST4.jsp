@@ -10,22 +10,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-function funcup(){
-	var code = prompt("수정할 코드를 입력하세요")
-	//alert(code)
-	if(code != "" && code != null){
-		location.href="dbtest2_up.jsp?code=" + code;
-	}
+function funcup(aa){
+	//alert(aa)
+
+		location.href="TEST4_up.jsp?code=" + aa;
+
 }
 
-function funcdel(){
-	var code = prompt("삭제할 코드를 입력하세요")
-	if(code != "" && code != null){
+function funcdel(aa){
 		if(confirm("삭제?") == true){
-		location.href="dbtest2_del.jsp?code=" + code;
+		location.href="TEST4_del.jsp?code=" + aa;
 			
 		}
-	}
+
 }
 </script>
 </head>
@@ -41,8 +38,8 @@ ArrayList<BDTO> list = connBeanPooling.getData();
 for(BDTO s : list){
 %>
 	<tr>
-	<td><%=s.getCode() %></td>
-	<td><%=s.getName()%></td>
+	<td><a href="javascript:funcdel('<%=s.getCode() %>')"><%=s.getCode() %></a></td>
+	<td><a href="javascript:funcup('<%=s.getCode() %>')"><%=s.getName()%></a></td>
 	<td><%=s.getSubject()%></td>
 	<td><%=s.getContent() %></td>
 	</tr>

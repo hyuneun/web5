@@ -1,6 +1,7 @@
 package pack;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -31,10 +32,11 @@ public class TEST4_pooling {
 	
 	public TEST4_pooling() {
 		try {
-			//기존방법 - Class.forName("com.mysql.jdbc.Driver");
+			//기존방법 - 
+			Class.forName("com.mysql.jdbc.Driver");
 			//커넥션 객체를 풀링기법으로 만들어줌
-			Context context = new InitialContext();
-			ds = (DataSource)context.lookup("java:comp/env/jdbc_maria");
+			//Context context = new InitialContext();
+			//ds = (DataSource)context.lookup("java:comp/env/jdbc_maria");
 			
 		} catch (Exception e) {
 			System.out.println("실패");
@@ -46,7 +48,8 @@ public class TEST4_pooling {
 		ArrayList<BDTO> list = new ArrayList<>();
 		try {
 			String sql = "select * from guest";
-			conn = ds.getConnection();//풀링
+			//conn = ds.getConnection();//풀링
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "1234");
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -85,7 +88,8 @@ public class TEST4_pooling {
 			
 			//신상코드구하기
 			sql = "select max(code) from guest";
-			conn = ds.getConnection();
+			//conn = ds.getConnection();
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "1234");
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			int maxCode = 0;
@@ -124,20 +128,21 @@ public class TEST4_pooling {
 		return b;
 	}
 	
-	public SangpumDTO updateList(String code){
-		SangpumDTO dto = null;
-		String sql = "select * from sangdata where code=?";
+	public BDTO updateList(String code){
+		BDTO dto = null;
+		String sql = "select * from guest where code=?";
 		try {
-			conn = ds.getConnection();
+			//conn = ds.getConnection();
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "1234");
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, code);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
-				dto = new SangpumDTO();
+				dto = new BDTO();
 				dto.setCode(code);
-				dto.setSang(rs.getString("sang"));
-				dto.setSu(rs.getInt("su"));
-				dto.setDan(rs.getInt("dan"));
+				dto.setName(rs.getString("name"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -156,17 +161,18 @@ public class TEST4_pooling {
 		return dto;
 	}
 	
-	public boolean cdata(SangpumBean bean){
+	public boolean cdata(BDTO bean){
 		boolean b = false;
 		String sql = "";
 		int re = 0;
 		try {
-			conn = ds.getConnection();
-			sql = "update sangdata set sang=?,su=?,dan=? where code=?";
+			//conn = ds.getConnection();
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "1234");
+			sql = "update guest set name=?,subject=?,content=? where code=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bean.getSang());
-			pstmt.setString(2, bean.getSu());
-			pstmt.setString(3, bean.getDan());
+			pstmt.setString(1, bean.getName());
+			pstmt.setString(2, bean.getSubject());
+			pstmt.setString(3, bean.getContent());
 			pstmt.setString(4, bean.getCode());
 			re = pstmt.executeUpdate();
 			//System.out.println(re);
@@ -196,8 +202,9 @@ public class TEST4_pooling {
 		String sql = "";
 		int re = 0;
 		try {
-			conn = ds.getConnection();
-			sql = "delete from sangdata where code=?";
+			//conn = ds.getConnection();
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "1234");
+			sql = "delete from guest where code=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, code);
 			re = pstmt.executeUpdate();
